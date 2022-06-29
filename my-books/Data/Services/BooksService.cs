@@ -11,6 +11,7 @@ namespace my_books.Data.Services
     public class BooksService
     {
         private readonly AppDbContext _context;
+
         public BooksService(AppDbContext context)
         {
             _context = context;
@@ -55,7 +56,16 @@ namespace my_books.Data.Services
                 _context.SaveChanges();
             }
             return _book;
-            
+        }
+
+        public void DeleteBookById(int bookId)
+        {
+            var _book = _context.BOOKS.FirstOrDefault(b => b.Id == bookId);
+            if (_book != null)
+            {
+                _context.BOOKS.Remove(_book);
+                _context.SaveChanges();
+            }
         }
     }
 }
